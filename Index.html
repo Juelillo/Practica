@@ -1,0 +1,821 @@
+
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bloodborne | The Hunt Begins</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@400;500;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- DaisyUI -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.24/dist/full.min.css" rel="stylesheet">
+
+    <!-- AOS -->
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <style>
+        :root {
+            --black: #100F12;
+            --dark: #191619;
+            --gray: #29252A;
+            --blood: #651D25;
+            --gold: #A68B63;
+            --cream: #D2C7B5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--black);
+            color: var(--cream);
+            font-family: 'Lato', sans-serif;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .brand {
+            font-family: 'Cinzel', serif;
+        }
+
+        .serif {
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        /* NAVBAR */
+
+        .navbar-custom {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 18px 7%;
+            transition: .4s ease;
+            background: transparent;
+        }
+
+        .navbar-custom.scrolled {
+            background: rgba(16, 15, 18, .95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(166,139,99,.2);
+            padding: 12px 7%;
+        }
+
+        .nav-link {
+            color: var(--cream);
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transition: .3s;
+        }
+
+        .nav-link:hover {
+            color: var(--gold);
+        }
+
+        /* HERO */
+
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background:
+                linear-gradient(to bottom, rgba(10,9,12,.35), rgba(10,9,12,.55) 55%, var(--black)),
+                linear-gradient(to right, rgba(10,9,12,.65), transparent, rgba(10,9,12,.3)),
+                url('assets/img/Hero.jpeg') center 35% / cover no-repeat;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            padding: 100px 20px 60px;
+        }
+
+        .hero-subtitle {
+            color: var(--gold);
+            letter-spacing: 7px;
+            font-size: 11px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+        }
+
+        .hero-title {
+            font-size: clamp(3.5rem, 10vw, 9rem);
+            font-weight: 500;
+            letter-spacing: 5px;
+            line-height: 1;
+            color: var(--cream);
+            text-shadow: 0 5px 30px rgba(0,0,0,.9);
+        }
+
+        .hero-description {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(18px, 2vw, 25px);
+            color: #c7bdb0;
+            margin: 25px auto 35px;
+            max-width: 600px;
+        }
+
+        .blood-btn {
+            background: var(--blood);
+            color: white;
+            border: 1px solid var(--blood);
+            border-radius: 0;
+            padding: 17px 35px;
+            font-family: 'Cinzel', serif;
+            font-size: 11px;
+            letter-spacing: 2px;
+            transition: .4s;
+            text-transform: uppercase;
+        }
+
+        .blood-btn:hover {
+            background: transparent;
+            border-color: var(--gold);
+            color: var(--gold);
+            transform: translateY(-4px);
+        }
+
+        .outline-btn {
+            background: transparent;
+            color: var(--cream);
+            border: 1px solid rgba(210,199,181,.4);
+            border-radius: 0;
+            padding: 17px 35px;
+            font-family: 'Cinzel', serif;
+            font-size: 11px;
+            letter-spacing: 2px;
+            transition: .4s;
+        }
+
+        .outline-btn:hover {
+            background: var(--cream);
+            color: var(--black);
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 35px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--gold);
+            font-size: 10px;
+            letter-spacing: 4px;
+            text-align: center;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 45px;
+            background: var(--gold);
+            margin: 12px auto 0;
+        }
+
+        /* GENERAL SECTIONS */
+
+        section {
+            padding: 110px 8%;
+        }
+
+        .section-label {
+            color: var(--gold);
+            font-size: 11px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 18px;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            color: var(--cream);
+            line-height: 1.2;
+            margin-bottom: 25px;
+        }
+
+        .section-text {
+            font-family: 'Cormorant Garamond', serif;
+            color: #b7aca1;
+            font-size: 20px;
+            line-height: 1.8;
+        }
+
+        .gold-divider {
+            width: 70px;
+            height: 1px;
+            background: var(--gold);
+            margin: 25px 0;
+        }
+
+        /* STORY */
+
+        .story-section {
+            background: var(--black);
+        }
+
+        .story-image {
+            min-height: 550px;
+            background:
+                linear-gradient(to top, rgba(16,15,18,.35), transparent),
+                url('assets/img/Ambientacion.jpeg') center / cover no-repeat;
+            border: 1px solid rgba(166,139,99,.2);
+        }
+
+        /* FEATURES */
+
+        .features-section {
+            background: #171417;
+        }
+
+        .feature-card {
+            background: #201c20;
+            border: 1px solid rgba(166,139,99,.15);
+            border-radius: 0;
+            overflow: hidden;
+            transition: .4s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+        }
+
+        .feature-image {
+            height: 260px;
+            background-size: cover;
+            background-position: center;
+            transition: .6s;
+        }
+
+        .feature-card:hover .feature-image {
+            transform: scale(1.05);
+        }
+
+        .feature-content {
+            padding: 28px;
+        }
+
+        .feature-number {
+            color: var(--blood);
+            font-family: 'Cinzel', serif;
+            font-size: 35px;
+        }
+
+        .feature-title {
+            font-size: 19px;
+            margin: 12px 0;
+            color: var(--cream);
+        }
+
+        .feature-text {
+            color: #a99e94;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        /* ATMOSPHERE */
+
+        .atmosphere-section {
+            position: relative;
+            min-height: 650px;
+            display: flex;
+            align-items: center;
+            background:
+                linear-gradient(rgba(10,9,12,.65), rgba(10,9,12,.8)),
+                url('assets/img/Exploracion.jpeg') center / cover fixed;
+        }
+
+        .atmosphere-content {
+            max-width: 750px;
+            margin: auto;
+            text-align: center;
+        }
+
+        .atmosphere-content .gold-divider {
+            margin: 25px auto;
+        }
+
+        /* QUOTE */
+
+        .quote-section {
+            background: var(--black);
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .quote {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(28px, 5vw, 55px);
+            font-style: italic;
+            color: var(--cream);
+            max-width: 900px;
+            margin: auto;
+            line-height: 1.3;
+        }
+
+        .quote-author {
+            color: var(--gold);
+            font-size: 10px;
+            letter-spacing: 5px;
+            margin-top: 30px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #09080a;
+            border-top: 1px solid rgba(166,139,99,.2);
+            padding: 45px 8%;
+            text-align: center;
+        }
+
+        .footer-brand {
+            font-family: 'Cinzel', serif;
+            font-size: 25px;
+            letter-spacing: 5px;
+        }
+
+        .footer-text {
+            color: #817970;
+            font-size: 11px;
+            margin-top: 15px;
+            letter-spacing: 1px;
+        }
+
+        /* MOBILE */
+
+        @media(max-width: 768px) {
+            section {
+                padding: 75px 6%;
+            }
+
+            .navbar-custom {
+                padding: 15px 5%;
+            }
+
+            .hero {
+                background-position: center;
+            }
+
+            .story-image {
+                min-height: 350px;
+            }
+
+            .atmosphere-section {
+                background-attachment: scroll;
+                min-height: 500px;
+            }
+
+            .feature-image {
+                height: 220px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <header class="navbar-custom" id="navbar">
+        <div class="flex justify-between items-center">
+
+            <a href="#inicio" class="brand text-xl tracking-widest">
+                BLOODBORNE
+            </a>
+
+            <nav class="hidden md:flex gap-10 items-center">
+                <a href="#historia" class="nav-link">Historia</a>
+                <a href="#gameplay" class="nav-link">Gameplay</a>
+                <a href="#universo" class="nav-link">Universo</a>
+                <a href="#caceria" class="nav-link">La cacería</a>
+            </nav>
+
+            <a href="#historia" class="btn blood-btn hidden md:flex">
+                Explorar
+            </a>
+
+            <button id="menu-btn" class="md:hidden text-2xl text-[#D2C7B5]" aria-label="Abrir menú">
+                ☰
+            </button>
+        </div>
+
+        <nav id="mobile-menu" class="hidden flex-col gap-5 pt-6 md:hidden">
+            <a href="#historia" class="nav-link">Historia</a>
+            <a href="#gameplay" class="nav-link">Gameplay</a>
+            <a href="#universo" class="nav-link">Universo</a>
+            <a href="#caceria" class="nav-link">La cacería</a>
+        </nav>
+    </header>
+
+
+    <!-- HERO -->
+
+    <main>
+
+    <section class="hero" id="inicio">
+
+        <div class="hero-content">
+
+            <p class="hero-subtitle" data-aos="fade-down">
+                FromSoftware presents
+            </p>
+
+            <h1 class="hero-title" id="hero-title">
+                BLOODBORNE
+            </h1>
+
+            <div class="gold-divider mx-auto"></div>
+
+            <p class="hero-description" data-aos="fade-up" data-aos-delay="300">
+                La noche es oscura. La sangre llama.
+                Y la cacería nunca termina.
+            </p>
+
+            <div class="flex flex-wrap justify-center gap-4"
+                 data-aos="fade-up" data-aos-delay="500">
+
+                <a href="#historia" class="btn blood-btn">
+                    Descubrir el juego
+                </a>
+
+                <a href="#gameplay" class="btn outline-btn">
+                    Explorar universo
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="scroll-indicator">
+            DESCUBRE YHARNAM
+            <div class="scroll-line"></div>
+        </div>
+
+    </section>
+
+
+    <!-- HISTORIA -->
+
+    <section class="story-section" id="historia">
+
+        <div class="grid md:grid-cols-2 gap-14 items-center">
+
+            <div data-aos="fade-right">
+
+                <p class="section-label">01 / El comienzo</p>
+
+                <h2 class="section-title">
+                    BIENVENIDO A
+                    <span class="text-[#A68B63]">YHARNAM</span>
+                </h2>
+
+                <div class="gold-divider"></div>
+
+                <p class="section-text">
+                    Adéntrate en el oscuro y misterioso mundo de Yharnam,
+                    una antigua ciudad de arquitectura gótica donde una
+                    extraña enfermedad ha desatado el caos, transformando
+                    a sus habitantes en criaturas monstruosas sedientas
+                    de sangre.
+                </p>
+
+                <p class="section-text mt-5">
+                    En Bloodborne, asumirás el papel de un cazador que
+                    deberá sobrevivir a una noche interminable,
+                    enfrentándose a bestias aterradoras y descubriendo
+                    los secretos que se esconden detrás de esta
+                    misteriosa plaga.
+                </p>
+
+            </div>
+
+            <div class="story-image" data-aos="fade-left"></div>
+
+        </div>
+
+    </section>
+
+
+    <!-- GAMEPLAY -->
+
+    <section class="features-section" id="gameplay">
+
+        <div class="text-center mb-16" data-aos="fade-up">
+
+            <p class="section-label">02 / La experiencia</p>
+
+            <h2 class="section-title">
+                LA CAZA COMIENZA
+            </h2>
+
+            <div class="gold-divider mx-auto"></div>
+
+            <p class="section-text max-w-2xl mx-auto">
+                Cada rincón esconde un peligro. Cada enemigo representa
+                un nuevo desafío. Sobrevivir dependerá de tu habilidad.
+            </p>
+
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-7">
+
+            <!-- CARD 1 -->
+
+            <article class="feature-card" data-aos="fade-up">
+
+                <div class="overflow-hidden">
+                    <div class="feature-image"
+                         style="background-image:url('assets/img/Combate.jpeg')">
+                    </div>
+                </div>
+
+                <div class="feature-content">
+
+                    <span class="feature-number">01</span>
+
+                    <h3 class="feature-title">
+                        COMBATE DESAFIANTE
+                    </h3>
+
+                    <p class="feature-text">
+                        Domina un sistema de batalla rápido y agresivo
+                        donde cada movimiento puede marcar la diferencia
+                        entre la vida y la muerte.
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <!-- CARD 2 -->
+
+            <article class="feature-card" data-aos="fade-up" data-aos-delay="150">
+
+                <div class="overflow-hidden">
+                    <div class="feature-image"
+                         style="background-image:url('assets/img/Exploracion.jpeg')">
+                    </div>
+                </div>
+
+                <div class="feature-content">
+
+                    <span class="feature-number">02</span>
+
+                    <h3 class="feature-title">
+                        EXPLORACIÓN OSCURA
+                    </h3>
+
+                    <p class="feature-text">
+                        Recorre calles abandonadas, catedrales
+                        imponentes y lugares retorcidos llenos de
+                        caminos ocultos y secretos.
+                    </p>
+
+                </div>
+
+            </article>
+
+
+            <!-- CARD 3 -->
+
+            <article class="feature-card" data-aos="fade-up" data-aos-delay="300">
+
+                <div class="overflow-hidden">
+                    <div class="feature-image"
+                         style="background-image:url('assets/img/Ambientacion.jpeg')">
+                    </div>
+                </div>
+
+                <div class="feature-content">
+
+                    <span class="feature-number">03</span>
+
+                    <h3 class="feature-title">
+                        CRIATURAS ATERRADORAS
+                    </h3>
+
+                    <p class="feature-text">
+                        Enfréntate a bestias monstruosas y jefes
+                        colosales que pondrán a prueba tus habilidades,
+                        reflejos y perseverancia.
+                    </p>
+
+                </div>
+
+            </article>
+
+        </div>
+
+    </section>
+
+
+    <!-- ATMOSPHERE -->
+
+    <section class="atmosphere-section" id="universo">
+
+        <div class="atmosphere-content" data-aos="zoom-in">
+
+            <p class="section-label">
+                03 / Más allá de la realidad
+            </p>
+
+            <h2 class="section-title">
+                UN MUNDO DE
+                <span class="text-[#A68B63]">PESADILLAS</span>
+            </h2>
+
+            <div class="gold-divider"></div>
+
+            <p class="section-text">
+                Descubre una historia llena de secretos, criaturas
+                sobrenaturales y elementos inspirados en el horror
+                gótico y cósmico. Cada escenario esconde fragmentos
+                de una verdad que quizá nunca debió ser descubierta.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- CLOSING QUOTE -->
+
+    <section class="quote-section" id="caceria">
+
+        <div data-aos="fade-up">
+
+            <p class="section-label">
+                04 / La última advertencia
+            </p>
+
+            <h2 class="quote">
+                "Teme la sangre, cazador.
+                La noche apenas comienza."
+            </h2>
+
+            <div class="gold-divider mx-auto"></div>
+
+            <p class="quote-author">
+                LA CACERÍA TE ESPERA
+            </p>
+
+            <a href="#inicio" class="btn blood-btn mt-10">
+                VOLVER AL INICIO
+            </a>
+
+        </div>
+
+    </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <h2 class="footer-brand">
+            BLOODBORNE
+        </h2>
+
+        <p class="footer-text">
+            TEME LA SANGRE. ABRAZA LA CACERÍA.
+        </p>
+
+        <div class="gold-divider mx-auto"></div>
+
+        <p class="footer-text">
+            Landing page conceptual · Proyecto de diseño web
+        </p>
+
+        <p class="footer-text">
+            Bloodborne es propiedad de sus respectivos titulares.
+        </p>
+
+    </footer>
+
+
+    <!-- GSAP -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+
+    <!-- AOS -->
+
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+
+    <script>
+
+        // Inicializar AOS
+
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100,
+            easing: 'ease-out-cubic'
+        });
+
+
+        // Navbar al hacer scroll
+
+        const navbar = document.getElementById('navbar');
+
+        window.addEventListener('scroll', () => {
+
+            if (window.scrollY > 60) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+
+        });
+
+
+        // Menú móvil
+
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuBtn.addEventListener('click', () => {
+
+            mobileMenu.classList.toggle('hidden');
+
+            menuBtn.textContent =
+                mobileMenu.classList.contains('hidden') ? '☰' : '✕';
+
+        });
+
+        mobileMenu.querySelectorAll('a').forEach(link => {
+
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuBtn.textContent = '☰';
+            });
+
+        });
+
+
+        // Animación inicial GSAP
+
+        gsap.from(".hero-subtitle", {
+            opacity: 0,
+            y: -30,
+            duration: 1.2,
+            delay: 0.3
+        });
+
+        gsap.from("#hero-title", {
+            opacity: 0,
+            y: 50,
+            scale: 0.95,
+            duration: 1.8,
+            delay: 0.5,
+            ease: "power3.out"
+        });
+
+        gsap.from(".hero-description", {
+            opacity: 0,
+            y: 25,
+            duration: 1.2,
+            delay: 1.1
+        });
+
+        gsap.from(".hero-content .btn", {
+            opacity: 0,
+            y: 20,
+            duration: 1,
+            delay: 1.4,
+            stagger: 0.2
+        });
+
+
+        // Movimiento sutil del hero
+
+        gsap.to(".hero", {
+            backgroundPosition: "center 45%",
+            duration: 12,
+            ease: "none",
+            repeat: -1,
+            yoyo: true
+        });
+
+    </script>
+
+</body>
+</html>
